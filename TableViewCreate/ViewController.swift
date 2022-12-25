@@ -40,6 +40,32 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
+    //Sola çekince cell yeşil yapıldı
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+            
+            let action = UIContextualAction(style: .normal, title: title) { (action, view, completion) in
+                // 3
+                let cell = self.tableView.cellForRow(at: indexPath)
+                cell?.backgroundColor = .systemGreen
+                completion(true)
+            }
+            //action.image = UIImage(systemName: "heart.fill")
+            action.backgroundColor = .green
+            let configuration = UISwipeActionsConfiguration(actions: [action])
+            return configuration
+    }
+    //sağa çekince hücre gri yapıldı
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .normal, title: nil) { action, view, completion in
+            let cell = self.tableView.cellForRow(at: indexPath)
+            cell?.backgroundColor = .systemGray
+            completion(true)
+        }
+        action.backgroundColor = .gray
+        let configuration = UISwipeActionsConfiguration(actions: [action])
+        return configuration
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = array[indexPath.row]
